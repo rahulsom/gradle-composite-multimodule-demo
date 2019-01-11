@@ -1,0 +1,25 @@
+plugins {
+    // Apply the java plugin to add support for Java
+    id 'java'
+
+    // Apply the application plugin to add support for building an application
+    id 'application'
+}
+
+group 'gradle.demo.rahulsom.p2'
+
+repositories {
+    // Use jcenter for resolving your dependencies.
+    // You can declare any Maven/Ivy/file repository here.
+    jcenter()
+    maven {
+        url = new File("${rootProject.projectDir.parentFile}/repo")
+    }
+}
+
+dependencies {
+    implementation 'gradle.demo.rahulsom.p1:api:1.0'
+}
+
+// Define the main class for the application
+mainClassName = 'project2.App'

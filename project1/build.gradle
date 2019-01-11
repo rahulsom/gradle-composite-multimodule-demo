@@ -1,0 +1,45 @@
+group 'gradle.demo.rahulsom.p1'
+
+subprojects {
+    apply plugin: 'java-library'
+    apply plugin: 'maven-publish'
+
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        testImplementation 'junit:junit:4.12'
+    }
+
+    task sourcesJar(type: Jar) {
+        from sourceSets.main.allJava
+        classifier = 'sources'
+    }
+
+    task javadocJar(type: Jar) {
+        from javadoc
+        classifier = 'javadoc'
+    }
+
+    publishing {
+        publications {
+            mavenJava(MavenPublication) {
+                artifactId = project.name
+                groupId = 'gradle.demo.rahulsom.p1'
+                version = '1.0'
+
+                from components.java
+                artifact sourcesJar
+                artifact javadocJar
+            }
+
+        }
+
+        repositories {
+            maven {
+                url = new File("${rootProject.projectDir.parentFile}/repo")
+            }
+        }
+    }
+}
